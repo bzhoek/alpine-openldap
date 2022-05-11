@@ -1,0 +1,31 @@
+# OpenLDAP
+
+Alpine [based](https://pkgs.org/search/?q=openldap) OpenLDAP image with MDB backend and [PKCS#5V2 PBKDF2 support](https://git.openldap.org/openldap/openldap/-/tree/master/contrib/slapd-modules/passwd/pbkdf2)
+
+Installs to
+* `/usr/sbin` slap* tools
+* `/etc/openldap` configuration
+* `/usr/lib/openldap` custom modules
+
+```shell
+docker build -t openldap .
+docker run -p 1389:389 openldap
+```
+
+## PBKDF2
+
+```shell
+docker exec -it openldap /bin/sh
+slappasswd -o module-load=pw-pbkdf2 -h {PBKDF2} -s secret
+{PBKDF2}10000$iWxOhvwQkh5fR6WcVp7lhQ$.X4K8AaUuWV0Ih43ISvXMh0bAMc
+
+vi /etc/openldap/slapd.conf
+slapd -d 32767 -u ldap -g ldap
+```
+
+## Helpers
+`insert-in-file.sh` circumvents an Ash shell limitation that doesn't allow multiple environment variables to be passed on the command-line. In Bash, the following would work:
+
+```
+RUN FILE="/etc/openldap/slapd.conf" LINE="moduleload\tpasswd-pbkdf2" AFTER="# Load dynamic backend modules:" grep -qxF $LINE $FILE || sed -E 's|($AFTER)|\1\n$LINE|g' $FILE
+```
