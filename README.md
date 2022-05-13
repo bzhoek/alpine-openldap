@@ -8,9 +8,6 @@ Installs to
 * `/usr/lib/openldap` custom modules
 
 ```shell
-brew install openjdk@11
-brew install apache-directory-studio
-
 docker build -t openldap .
 docker run -p 1389:389 openldap
 ```
@@ -43,8 +40,18 @@ https://kaosktrl.wordpress.com/2014/04/28/export-crowd-users-and-groups-to-ldap/
 https://www.redradishtech.com/display/KB/Migrating+JIRA+users+to+LDAP%2C+preserving+passwords
 https://web.archive.org/web/20081024045702/http://www.rsa.com/rsalabs/node.asp?id=2127
 
+## Directory Studio
+
+```shell
+brew install openjdk@11
+brew install apache-directory-studio
+```
+
+File, New, LDAP Connection, Hostname: localhost, Port: 1389, Check Network Parameters, Next
+Bind DN or user: cn=Manager,dc=my-domain,dc=com, Bind password: secret, Check Authentication, Finish.
+
 ## Helpers
-`insert-in-file.sh` circumvents an Ash shell limitation that doesn't allow multiple environment variables to be passed on the command-line. In Bash, the following would work:
+`insert-in-file.sh` circumvents an Alpine's Ash shell limitation that doesn't allow multiple environment variables to be passed on the command-line. In Bash, the following would work:
 
 ```
 RUN FILE="/etc/openldap/slapd.conf" LINE="moduleload\tpasswd-pbkdf2" AFTER="# Load dynamic backend modules:" grep -qxF $LINE $FILE || sed -E 's|($AFTER)|\1\n$LINE|g' $FILE
