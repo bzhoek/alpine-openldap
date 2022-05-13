@@ -8,6 +8,9 @@ Installs to
 * `/usr/lib/openldap` custom modules
 
 ```shell
+brew install openjdk@11
+brew install apache-directory-studio
+
 docker build -t openldap .
 docker run -p 1389:389 openldap
 ```
