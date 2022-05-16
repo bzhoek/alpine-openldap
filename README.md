@@ -36,9 +36,9 @@ Password: CALYX-zippy-whiten-pinhead
    Crowd: {PKCS5S2}MW+VUen5ZKtw2xxOljoZKS2A2XO8PTIA9bVMVmjHfy5bG8pXF41muDjOwjp4UBA1
 OpenLDAP: {PBKDF2}10000$MW.VUen5ZKtw2xxOljoZKQ$LYDZc7w9MgD1tUxWaMd/Llsbylc
 
-https://kaosktrl.wordpress.com/2014/04/28/export-crowd-users-and-groups-to-ldap/
-https://www.redradishtech.com/display/KB/Migrating+JIRA+users+to+LDAP%2C+preserving+passwords
-https://web.archive.org/web/20081024045702/http://www.rsa.com/rsalabs/node.asp?id=2127
+* https://kaosktrl.wordpress.com/2014/04/28/export-crowd-users-and-groups-to-ldap/
+* https://www.redradishtech.com/display/KB/Migrating+JIRA+users+to+LDAP%2C+preserving+passwords
+* https://web.archive.org/web/20081024045702/http://www.rsa.com/rsalabs/node.asp?id=2127
 
 ## Directory Studio
 
@@ -47,8 +47,8 @@ brew install openjdk@11
 brew install apache-directory-studio
 ```
 
-File, New, LDAP Connection, Hostname: localhost, Port: 1389, Check Network Parameters, Next
-Bind DN or user: cn=Manager,dc=my-domain,dc=com, Bind password: secret, Check Authentication, Finish.
+1. File, New, LDAP Connection, Hostname: localhost, Port: 1389, Check Network Parameters, Next
+2. Bind DN or user: cn=Manager,dc=my-domain,dc=com, Bind password: secret, Check Authentication, Finish.
 
 ## Helpers
 `insert-in-file.sh` circumvents an Alpine's Ash shell limitation that doesn't allow multiple environment variables to be passed on the command-line. In Bash, the following would work:
