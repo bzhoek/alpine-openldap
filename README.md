@@ -12,6 +12,38 @@ docker build -t openldap .
 docker run -p 1389:389 openldap
 ```
 
+## Import LDIF
+
+```shell
+ldapadd -x -H "ldap://localhost:1389" -D "cn=Manager,dc=ripe,dc=net" -W -f import.ldif
+ldapsearch -x -H "ldap://localhost:1389" -b "dc=ripe,dc=net" "+"
+# Manager, ripe.net
+dn: cn=Manager,dc=ripe,dc=net
+structuralObjectClass: organizationalRole
+entryUUID: 41635933-d904-4e59-b812-9606d85a0481
+creatorsName: cn=Manager,dc=ripe,dc=net
+createTimestamp: 20220516091357Z
+entryCSN: 20220516091357.950189Z#000000#000#000000
+modifiersName: cn=Manager,dc=ripe,dc=net
+modifyTimestamp: 20220516091357Z
+entryDN: cn=Manager,dc=ripe,dc=net
+subschemaSubentry: cn=Subschema
+hasSubordinates: FALSE
+```
+
+### UUID
+
+Can only be imported directly with [`slapadd`](https://linux.die.net/man/8/slapadd); `ldapadd` returns ` entryUUID: no user modification allowed`. This could be circumvented with the 'Relax Rules Control' that OpenLDAP supports.
+
+```
+slapadd -v -l import.ldif
+
+dn: cn=user,dc=ripe,dc=net
+objectClass: organizationalRole
+cn: user
+entryUUID: 19cb4a6f-d04e-43a3-929c-a851bc216378
+```
+
 ## PBKDF2
 https://dev.to/demg_dev/pbkdf2-hash-a-secure-password-5f8l
 
@@ -34,6 +66,7 @@ Salt size is always 16 bytes, but DK? size varies from 20 for SHA-128 to 64 for 
 
 Password: CALYX-zippy-whiten-pinhead
    Crowd: {PKCS5S2}MW+VUen5ZKtw2xxOljoZKS2A2XO8PTIA9bVMVmjHfy5bG8pXF41muDjOwjp4UBA1
+          {SSHA}fm0etP9j2tej3FjmFpyK7ZeYuVCMsOo2YUwgtQ==
 OpenLDAP: {PBKDF2}10000$MW.VUen5ZKtw2xxOljoZKQ$LYDZc7w9MgD1tUxWaMd/Llsbylc
 
 * https://kaosktrl.wordpress.com/2014/04/28/export-crowd-users-and-groups-to-ldap/

@@ -1,0 +1,4 @@
+dn: cn=user,dc=ripe,dc=net
+objectClass: organizationalRole
+cn: user
+entryUUID: 19cb4a6f-d04e-43a3-929c-a851bc216378

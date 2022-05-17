@@ -1,0 +1,9 @@
+dn: dc=ripe,dc=net
+objectclass: dcObject
+objectclass: organization
+o: RIPE NCC
+dc: ripe
+
+dn: cn=Manager,dc=ripe,dc=net
+objectclass: organizationalRole
+cn: Manager
